@@ -1,0 +1,46 @@
+{
+  "Assignments": null,
+  "CreatedDateTime": "2025-09-03T10:13:54.6979686Z",
+  "Description": null,
+  "DeviceSettingStateSummaries": null,
+  "DeviceStatusOverview": {
+    "ConfigurationVersion": null,
+    "ErrorCount": null,
+    "FailedCount": null,
+    "Id": null,
+    "LastUpdateDateTime": null,
+    "NotApplicableCount": null,
+    "PendingCount": null,
+    "SuccessCount": null
+  },
+  "DeviceStatuses": null,
+  "DisplayName": "Compliance 3",
+  "Id": "526fe8d5-5cb2-4a1e-913c-c7d167708710",
+  "LastModifiedDateTime": "2025-09-03T10:13:54.6979686Z",
+  "ScheduledActionsForRule": null,
+  "UserStatusOverview": {
+    "ConfigurationVersion": null,
+    "ErrorCount": null,
+    "FailedCount": null,
+    "Id": null,
+    "LastUpdateDateTime": null,
+    "NotApplicableCount": null,
+    "PendingCount": null,
+    "SuccessCount": null
+  },
+  "UserStatuses": null,
+  "Version": 1,
+  "AdditionalProperties": {
+    "@odata.type": "#microsoft.graph.windows10CompliancePolicy",
+    "passwordRequired": true,
+    "passwordBlockSimple": false,
+    "passwordRequiredToUnlockFromIdle": false,
+    "passwordRequiredType": "deviceDefault",
+    "requireHealthyDeviceReport": false,
+    "earlyLaunchAntiMalwareDriverEnabled": false,
+    "bitLockerEnabled": false,
+    "secureBootEnabled": false,
+    "codeIntegrityEnabled": false,
+    "storageRequireEncryption": false
+  }
+}
