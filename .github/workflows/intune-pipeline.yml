@@ -1,0 +1,40 @@
+name: Deploy Intune Policies
+
+on:
+  push:
+    branches:
+      - main   # Runs when you push to main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Setup PowerShell
+        uses: actions/setup-python@v5
+
+      - name: Install MS Graph Module
+        run: pwsh -command "Install-Module Microsoft.Graph.Intune -Force -Scope CurrentUser"
+
+      - name: Authenticate to Graph
+        run: |
+          pwsh -command "
+          Connect-MgGraph -ClientId ${{ secrets.CLIENT_ID }} `
+                           -TenantId ${{ secrets.TENANT_ID }} `
+                           -ClientSecret ${{ secrets.CLIENT_SECRET }}
+          "
+
+      - name: Apply Compliance Policies
+        run: |
+          pwsh -command "
+          $files = Get-ChildItem -Path ./Compliance/*.json
+          foreach ($file in $files) {
+              Write-Output 'Applying policy:' $file.FullName
+              $policy = Get-Content $file.FullName -Raw | ConvertFrom-Json
+              # Example: update or create compliance policy
+              New-MgDeviceManagementDeviceCompliancePolicy -BodyParameter $policy
+          }
+          "
