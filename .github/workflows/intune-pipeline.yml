@@ -16,7 +16,6 @@ jobs:
         run: |
           Install-Module Microsoft.Graph -Force -Scope CurrentUser
           Import-Module Microsoft.Graph
-
       - name: Authenticate to Microsoft Graph
         shell: pwsh
         run: |
