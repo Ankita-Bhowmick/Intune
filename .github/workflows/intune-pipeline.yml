@@ -1,15 +1,42 @@
+name: Deploy Intune Policies
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Setup PowerShell
+        uses: Amadevus/pwsh-script@v2
+
+      - name: Install MS Graph Module
+        run: pwsh -command "Install-Module Microsoft.Graph.Intune -Force -Scope CurrentUser"
+
       - name: Authenticate to Graph
+        run: pwsh -command "Connect-MgGraph -ClientId $env:CLIENT_ID -TenantId $env:TENANT_ID -ClientSecret $env:CLIENT_SECRET"
+
+      - name: Update Compliance Policy
         run: |
           pwsh -command "
-            Import-Module Microsoft.Graph.Authentication
-            $TenantId = '${{ secrets.TENANT_ID }}'
-            $ClientId = '${{ secrets.CLIENT_ID }}'
-            $ClientSecret = '${{ secrets.CLIENT_SECRET }}'
+            $displayName = 'Compliance Policy 1'   # 👈 Change to your policy name
+            $policy = Get-MgDeviceManagementCompliancePolicy | Where-Object { $_.DisplayName -eq $displayName }
 
-            # Build secure credential object
-            $SecureSecret = ConvertTo-SecureString $ClientSecret -AsPlainText -Force
-            $Cred = New-Object System.Management.Automation.PSCredential ($ClientId, $SecureSecret)
-
-            Connect-MgGraph -TenantId $TenantId -ClientId $ClientId -ClientSecret $ClientSecret
-            Select-MgProfile -Name beta
+            if ($policy) {
+                Write-Host 'Found policy:' $policy.Id
+                $json = Get-Content ./Compliance/Compliance_1.json -Raw | ConvertFrom-Json
+                Update-MgDeviceManagementCompliancePolicy -DeviceCompliancePolicyId $policy.Id -BodyParameter $json
+            }
+            else {
+                Write-Error 'Policy not found in Intune!'
+            }
           "
+        env:
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          TENANT_ID: ${{ secrets.TENANT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
