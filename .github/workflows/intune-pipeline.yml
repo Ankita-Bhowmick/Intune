@@ -18,7 +18,7 @@ jobs:
       - name: Install MS Graph Module
         run: pwsh -command "Install-Module Microsoft.Graph.Intune -Force -Scope CurrentUser"
 
-            - name: Authenticate to Graph
+      - name: Authenticate to Graph
         run: |
           pwsh -command "
             Import-Module Microsoft.Graph.Authentication
