@@ -21,6 +21,7 @@ jobs:
         run: pwsh -command "Connect-MgGraph -ClientId '${{ secrets.CLIENT_ID }}' -TenantId '${{ secrets.TENANT_ID }}' -ClientSecret '${{ secrets.CLIENT_SECRET }}'"
 
       - name: Select Graph Profile
+      
         run: pwsh -command "Select-MgProfile -Name beta"
 
       - name: Test Intune Connection
