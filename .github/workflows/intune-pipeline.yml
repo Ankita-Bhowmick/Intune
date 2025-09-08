@@ -11,18 +11,23 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Install PowerShell
-        uses: Amadevus/pwsh-script@v2
-
       - name: Install Microsoft Graph Module
-        run: pwsh -command "Install-Module Microsoft.Graph -Force -Scope CurrentUser"
+        shell: pwsh
+        run: |
+          Install-Module Microsoft.Graph -Force -Scope CurrentUser
+          Import-Module Microsoft.Graph
 
       - name: Authenticate to Microsoft Graph
-        run: pwsh -command "Connect-MgGraph -ClientId '${{ secrets.CLIENT_ID }}' -TenantId '${{ secrets.TENANT_ID }}' -ClientSecret '${{ secrets.CLIENT_SECRET }}'"
+        shell: pwsh
+        run: |
+          $TenantId = '${{ secrets.TENANT_ID }}'
+          $ClientId = '${{ secrets.CLIENT_ID }}'
+          $ClientSecret = '${{ secrets.CLIENT_SECRET }}'
 
-      - name: Select Graph Profile
-      
-        run: pwsh -command "Select-MgProfile -Name beta"
+          Connect-MgGraph -TenantId $TenantId -ClientId $ClientId -ClientSecret $ClientSecret
+          Select-MgProfile -Name beta
 
       - name: Test Intune Connection
-        run: pwsh -command "Get-MgDeviceManagementIntuneBrandingProfile | Format-Table DisplayName, Id"
+        shell: pwsh
+        run: |
+          Get-MgDeviceManagementIntuneBrandingProfile | Format-Table DisplayName, Id
