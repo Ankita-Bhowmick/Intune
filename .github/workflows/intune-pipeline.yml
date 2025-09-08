@@ -28,7 +28,7 @@ jobs:
 
             # Build secure credential object
             $SecureSecret = ConvertTo-SecureString $ClientSecret -AsPlainText -Force
-            $Cred = New-Object System.Management.Automation.PSCredential ($ClientId, $SecureSecret)
+            $Cred = New-Object System.Management.Automation.PSCredential ($ClientId, $SecureSecret),
 
             Connect-MgGraph -TenantId $TenantId -ClientId $ClientId -ClientSecret $ClientSecret
             Select-MgProfile -Name beta
