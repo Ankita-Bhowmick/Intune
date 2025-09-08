@@ -1,22 +1,27 @@
-name: "Deploy Intune Policies"
+name: "Connect to Intune via Microsoft Graph"
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
-  deploy:
+  connect-intune:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout Repo
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Setup PowerShell
+      - name: Install PowerShell
         uses: Amadevus/pwsh-script@v2
 
-      - name: Install MS Graph Modules
+      - name: Install Microsoft Graph Module
         run: pwsh -command "Install-Module Microsoft.Graph -Force -Scope CurrentUser"
 
-      - name: Authenticate to Graph
-        run: pwsh -command "Import-Module Microsoft.Graph.Authentication; $TenantId = '${{ secrets.TENANT_ID }}'; $ClientId = '${{ secrets.CLIENT_ID }}'; $ClientSecret = '${{ secrets.CLIENT_SECRET }}'; Connect-MgGraph -TenantId $TenantId -ClientId $ClientId -ClientSecret $ClientSecret; Select-MgProfile -Name beta"
+      - name: Authenticate to Microsoft Graph
+        run: pwsh -command "Connect-MgGraph -ClientId '${{ secrets.CLIENT_ID }}' -TenantId '${{ secrets.TENANT_ID }}' -ClientSecret '${{ secrets.CLIENT_SECRET }}'"
+
+      - name: Select Graph Profile
+        run: pwsh -command "Select-MgProfile -Name beta"
+
+      - name: Test Intune Connection
+        run: pwsh -command "Get-MgDeviceManagementIntuneBrandingProfile | Format-Table DisplayName, Id"
