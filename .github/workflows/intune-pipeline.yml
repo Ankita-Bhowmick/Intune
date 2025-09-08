@@ -17,14 +17,18 @@ jobs:
 
       - name: Install MS Graph Module
         run: pwsh -command "Install-Module Microsoft.Graph.Intune -Force -Scope CurrentUser"
-
+        
       - name: Authenticate to Graph
         run: |
           pwsh -command "
             Import-Module Microsoft.Graph.Authentication
-            $TenantId = '${{ secrets.9e6bd3c3-28c1-4f4c-8b6f-2bedbe4b4056 }}'
-            $ClientId = '${{ secrets.94b96498-04bc-49d2-90da-29cb429094b5 }}'
-            $ClientSecret = '${{ secrets.1811acc5-0308-4bc8-bca1-19fdcb1049f2 }}'
+            $TenantId = '${{ secrets.TENANT_ID }}'
+            $ClientId = '${{ secrets.CLIENT_ID }}'
+            $ClientSecret = '${{ secrets.CLIENT_SECRET }}'
+
+            # Build secure credential object
+            $SecureSecret = ConvertTo-SecureString $ClientSecret -AsPlainText -Force
+            $Cred = New-Object System.Management.Automation.PSCredential ($ClientId, $SecureSecret)
 
             Connect-MgGraph -TenantId $TenantId -ClientId $ClientId -ClientSecret $ClientSecret
             Select-MgProfile -Name beta
