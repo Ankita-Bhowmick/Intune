@@ -15,17 +15,18 @@ jobs:
       - name: Setup PowerShell
         uses: Amadevus/pwsh-script@v2
 
-      - name: Install MS Graph Module
-        run: pwsh -command "Install-Module Microsoft.Graph.Intune -Force -Scope CurrentUser"
+      - name: Install MS Graph Modules
+        run: pwsh -command "Install-Module Microsoft.Graph -Force -Scope CurrentUser"
 
       - name: Authenticate to Graph
         run: |
-          pwsh -command "
+          pwsh -command @"
             Import-Module Microsoft.Graph.Authentication
-            $TenantId = '${{ secrets.TENANT_ID }}'
-            $ClientId = '${{ secrets.CLIENT_ID }}'
-            $ClientSecret = '${{ secrets.CLIENT_SECRET }}'
 
-            Connect-MgGraph -TenantId $TenantId -ClientId $ClientId -ClientSecret $ClientSecret
+            \$TenantId = '${{ secrets.TENANT_ID }}'
+            \$ClientId = '${{ secrets.CLIENT_ID }}'
+            \$ClientSecret = '${{ secrets.CLIENT_SECRET }}'
+
+            Connect-MgGraph -TenantId \$TenantId -ClientId \$ClientId -ClientSecret \$ClientSecret
             Select-MgProfile -Name beta
-          "
+          "@
