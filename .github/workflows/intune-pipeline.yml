@@ -1,4 +1,4 @@
-name: Deploy Intune Policies
+name: "Deploy Intune Policies"
 
 on:
   push:
@@ -17,7 +17,7 @@ jobs:
 
       - name: Install MS Graph Module
         run: pwsh -command "Install-Module Microsoft.Graph.Intune -Force -Scope CurrentUser"
-        
+
       - name: Authenticate to Graph
         run: |
           pwsh -command "
@@ -25,10 +25,6 @@ jobs:
             $TenantId = '${{ secrets.TENANT_ID }}'
             $ClientId = '${{ secrets.CLIENT_ID }}'
             $ClientSecret = '${{ secrets.CLIENT_SECRET }}'
-
-            # Build secure credential object
-            $SecureSecret = ConvertTo-SecureString $ClientSecret -AsPlainText -Force
-            $Cred = New-Object System.Management.Automation.PSCredential ($ClientId, $SecureSecret)
 
             Connect-MgGraph -TenantId $TenantId -ClientId $ClientId -ClientSecret $ClientSecret
             Select-MgProfile -Name beta
