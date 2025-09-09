@@ -3,7 +3,8 @@ name: Sync Intune Policies
 on:
   push:
     paths:
-      - 'policies/**.json'
+      - 'Compliance/**/*.json'
+
 
 jobs:
   sync:
