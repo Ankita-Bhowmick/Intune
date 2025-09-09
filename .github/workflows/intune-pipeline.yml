@@ -1,32 +1,22 @@
-name: "Connect to Intune via Microsoft Graph"
+name: Sync Intune Policies
 
 on:
-  workflow_dispatch:
+  push:
+    paths:
+      - 'policies/**.json'
 
 jobs:
-  connect-intune:
-    runs-on: ubuntu-latest
+  sync:
+    runs-on: windows-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+    - name: Checkout repo
+      uses: actions/checkout@v3
 
-      - name: Install Microsoft Graph Module
-        shell: pwsh
-        run: |
-          Install-Module Microsoft.Graph -Force -Scope CurrentUser
-          Import-Module Microsoft.Graph
-      - name: Authenticate to Microsoft Graph
-        shell: pwsh
-        run: |
-          $TenantId = '${{ secrets.TENANT_ID }}'
-          $ClientId = '${{ secrets.CLIENT_ID }}'
-          $ClientSecret = '${{ secrets.CLIENT_SECRET }}'
-
-          Connect-MgGraph -TenantId $TenantId -ClientId $ClientId -ClientSecret $ClientSecret
-          Select-MgProfile -Name beta
-
-      - name: Test Intune Connection
-        shell: pwsh
-        run: |
-          Get-MgDeviceManagementIntuneBrandingProfile | Format-Table DisplayName, Id
+    - name: Run PowerShell script
+      env:
+        TENANT_ID: ${{ secrets.TENANT_ID }}
+        CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+      run: |
+        pwsh scripts/sync-intune.ps1
