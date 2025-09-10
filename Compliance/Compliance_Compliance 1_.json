@@ -35,7 +35,7 @@
     "passwordRequired": false,
     "passwordBlockSimple": false,
     "passwordRequiredToUnlockFromIdle": false,
-    "passwordRequiredType": "deviceDefault",
+    "passwordRequiredType": "numeric",
     "requireHealthyDeviceReport": false,
     "osMinimumVersion": "10.0.19045",
     "earlyLaunchAntiMalwareDriverEnabled": false,
