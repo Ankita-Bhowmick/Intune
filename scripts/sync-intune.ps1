@@ -19,16 +19,29 @@ $headers = @{
     "Content-Type" = "application/json"
 }
 
-# Loop through policy files
-$policyFiles = Get-ChildItem -Path "./compliance" -Filter *.json
+# Loop through policy files in Compliance folder
+$policyFiles = Get-ChildItem -Path "./Compliance" -Filter *.json
 foreach ($file in $policyFiles) {
+    Write-Host "Processing file: $($file.Name)"
+    
     $policyJson = Get-Content $file.FullName -Raw
     $policy = $policyJson | ConvertFrom-Json
 
-    # Example: Update existing policy by ID
+    # Check if 'id' exists
+    if (-not $policy.id) {
+        Write-Warning "Skipping file '$($file.Name)' — missing 'id' field."
+        continue
+    }
+
     $policyId = $policy.id
     $uri = "https://graph.microsoft.com/beta/deviceManagement/deviceConfigurations/$policyId"
 
     Write-Host "Updating policy: $policyId"
-    Invoke-RestMethod -Uri $uri -Method PATCH -Headers $headers -Body $policyJson
+
+    try {
+        Invoke-RestMethod -Uri $uri -Method PATCH -Headers $headers -Body $policyJson
+        Write-Host "✅ Successfully updated policy: $policyId"
+    } catch {
+        Write-Error "❌ Failed to update policy: $policyId. Error: $_"
+    }
 }
