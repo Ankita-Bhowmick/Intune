@@ -20,7 +20,7 @@ $headers = @{
 }
 
 # Loop through policy files
-$policyFiles = Get-ChildItem -Path "./policies" -Filter *.json
+$policyFiles = Get-ChildItem -Path "./compliance" -Filter *.json
 foreach ($file in $policyFiles) {
     $policyJson = Get-Content $file.FullName -Raw
     $policy = $policyJson | ConvertFrom-Json
