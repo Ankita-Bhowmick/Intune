@@ -28,7 +28,7 @@ $headers = @{
 }
 
 # ----------------------------------------
-# 📁 Step 4: Loop through JSON policy files
+# 📁 Step 4: Loop through JSON compliance policy files
 # ----------------------------------------
 $policyFiles = Get-ChildItem -Path "./Compliance" -Filter *.json
 foreach ($file in $policyFiles) {
@@ -46,11 +46,11 @@ foreach ($file in $policyFiles) {
     $policyId = $policy.id
 
     # ----------------------------------------
-    # 🌐 Step 5: Connect to Microsoft Graph API
+    # 🌐 Step 5: Use correct Graph API endpoint for compliance policies
     # ----------------------------------------
-    $uri = "https://graph.microsoft.com/beta/deviceManagement/deviceConfigurations/$policyId"
+    $uri = "https://graph.microsoft.com/beta/deviceManagement/deviceCompliancePolicies/$policyId"
 
-    Write-Host "🔄 Updating policy in Intune: $policyId"
+    Write-Host "🔄 Updating compliance policy in Intune: $policyId"
 
     try {
         $response = Invoke-RestMethod -Uri $uri -Method PATCH -Headers $headers -Body $policyJson
