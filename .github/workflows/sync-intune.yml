@@ -4,19 +4,24 @@ on:
   push:
     paths:
       - 'Compliance/**/*.json'
-
+  workflow_dispatch:
 
 jobs:
   sync:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Run PowerShell script
-      env:
-        TENANT_ID: ${{ secrets.TENANT_ID }}
-        CLIENT_ID: ${{ secrets.CLIENT_ID }}
-        CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-      run: pwsh scripts/sync-intune.ps1
+      - name: Set up PowerShell Core
+        uses: actions/setup-powershell@v2
+        with:
+          pwsh-version: '7.2.0'
+
+      - name: Run Intune sync script
+        env:
+          TENANT_ID: ${{ secrets.TENANT_ID }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+        run: pwsh ./scripts/sync-intune.ps1
