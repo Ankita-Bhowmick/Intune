@@ -39,8 +39,10 @@ foreach ($file in $policyFiles) {
     Write-Host "Updating policy: $policyId"
 
     try {
-        Invoke-RestMethod -Uri $uri -Method PATCH -Headers $headers -Body $policyJson
+        $response = Invoke-RestMethod -Uri $uri -Method PATCH -Headers $headers -Body $policyJson
         Write-Host "✅ Successfully updated policy: $policyId"
+        Write-Host "Response from Graph API:"
+        Write-Host ($response | ConvertTo-Json -Depth 5)
     } catch {
         Write-Error "❌ Failed to update policy: $policyId. Error: $_"
     }
