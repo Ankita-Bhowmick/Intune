@@ -14,11 +14,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up PowerShell Core
-        uses: actions/setup-powershell@v2
-        with:
-          pwsh-version: '7.2.0'
-
       - name: Run Intune sync script
         env:
           TENANT_ID: ${{ secrets.TENANT_ID }}
