@@ -35,7 +35,7 @@
     "passwordRequired": true,
     "passwordBlockSimple": false,
     "passwordRequiredToUnlockFromIdle": false,
-    "passwordRequiredType": "alphanumeric",
+    "passwordRequiredType": "numeric",
     "requireHealthyDeviceReport": false,
     "earlyLaunchAntiMalwareDriverEnabled": false,
     "bitLockerEnabled": false,
