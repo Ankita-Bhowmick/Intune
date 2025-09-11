@@ -3,8 +3,12 @@
     "displayName": "Compliance-1",
     "version": 4,
     "passwordRequired": true,
-    "passwordBlockSimple": false,
+    "passwordBlockSimple": true,
     "passwordRequiredToUnlockFromIdle": true,
+    "passwordMinutesOfInactivityBeforeLock": 5,
+    "passwordExpirationDays": 6,
+    "passwordMinimumLength": 5,
+    "passwordPreviousPasswordBlockCount": 2
     "passwordRequiredType": "numeric",
     "requireHealthyDeviceReport": false,
     "osMinimumVersion": "10.0.19045",
