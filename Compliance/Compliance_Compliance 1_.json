@@ -1,6 +1,6 @@
 {
     "@odata.type": "#microsoft.graph.windows10CompliancePolicy",
-    "displayName": "Compliance--1",
+    "displayName": "Compliance-1",
     "version": 4,
     "passwordRequired": false,
     "passwordBlockSimple": false,
