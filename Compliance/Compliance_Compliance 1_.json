@@ -1,7 +1,7 @@
 {
     "@odata.type": "#microsoft.graph.windows10CompliancePolicy",
-    "DisplayName": "Compliance--1",
-    "Version": 4,
+    "displayName": "Compliance--1",
+    "version": 4,
     "passwordRequired": false,
     "passwordBlockSimple": false,
     "passwordRequiredToUnlockFromIdle": false,
@@ -13,5 +13,5 @@
     "secureBootEnabled": false,
     "codeIntegrityEnabled": false,
     "storageRequireEncryption": false,
-    "Id": "7427e1f0-fd47-4672-a51c-2b118973920d"
+    "id": "7427e1f0-fd47-4672-a51c-2b118973920d"
 }
