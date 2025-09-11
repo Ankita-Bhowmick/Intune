@@ -8,7 +8,7 @@
     "passwordMinutesOfInactivityBeforeLock": 5,
     "passwordExpirationDays": 6,
     "passwordMinimumLength": 5,
-    "passwordPreviousPasswordBlockCount": 2
+    "passwordPreviousPasswordBlockCount": 2,
     "passwordRequiredType": "numeric",
     "requireHealthyDeviceReport": false,
     "osMinimumVersion": "10.0.19045",
