@@ -1,33 +1,7 @@
 {
-    "CreatedDateTime": "2025-08-11T14:32:09.6814547Z",
     "Description": null,
     "DeviceSettingStateSummaries": null,
-    "DeviceStatusOverview": {
-        "ConfigurationVersion": null,
-        "ErrorCount": null,
-        "FailedCount": null,
-        "Id": null,
-        "LastUpdateDateTime": null,
-        "NotApplicableCount": null,
-        "PendingCount": null,
-        "SuccessCount": null
-    },
-    "DeviceStatuses": null,
     "DisplayName": "Compliance--1",
-    "Id": "7427e1f0-fd47-4672-a51c-2b118973920d",
-    "LastModifiedDateTime": "2025-08-22T13:41:46.7598592Z",
-    "ScheduledActionsForRule": null,
-    "UserStatusOverview": {
-        "ConfigurationVersion": null,
-        "ErrorCount": null,
-        "FailedCount": null,
-        "Id": null,
-        "LastUpdateDateTime": null,
-        "NotApplicableCount": null,
-        "PendingCount": null,
-        "SuccessCount": null
-    },
-    "UserStatuses": null,
     "Version": 4,
     "@odata.type": "#microsoft.graph.windows10CompliancePolicy",
     "passwordRequired": false,
