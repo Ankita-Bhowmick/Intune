@@ -1,9 +1,7 @@
 {
-    "Description": null,
-    "DeviceSettingStateSummaries": null,
+    "@odata.type": "#microsoft.graph.windows10CompliancePolicy",
     "DisplayName": "Compliance--1",
     "Version": 4,
-    "@odata.type": "#microsoft.graph.windows10CompliancePolicy",
     "passwordRequired": false,
     "passwordBlockSimple": false,
     "passwordRequiredToUnlockFromIdle": false,
@@ -14,5 +12,6 @@
     "bitLockerEnabled": true,
     "secureBootEnabled": false,
     "codeIntegrityEnabled": false,
-    "storageRequireEncryption": false
+    "storageRequireEncryption": false,
+    "Id": "7427e1f0-fd47-4672-a51c-2b118973920d"
 }
